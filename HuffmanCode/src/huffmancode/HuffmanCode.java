@@ -22,6 +22,7 @@ public class HuffmanCode {
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
         File file = new File("test.txt");
+        //allows me to read the entire file at once
         byte[] data;
         try (FileInputStream fis = new FileInputStream(file)) {
             data = new byte[(int) file.length()];
@@ -35,6 +36,9 @@ public class HuffmanCode {
         for (String line : lines) {
             System.out.println(line);
         }
+        
+        FrequencyTable myTable = new FrequencyTable();
+        myTable.CreateTable(lines);
     }
     
 }
