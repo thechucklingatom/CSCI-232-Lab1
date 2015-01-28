@@ -1,0 +1,16 @@
+Lab1 (Due Feb 10)
+Write a program for Huffman Coding.
+You might need to use the priority queue and tree data structures given in this repo.
+Your program should do the following:
+
+1.) Accept a text message (Could be multiple lines of text)
+2.) Create a Huffman tree for this message
+3.) Create a code table
+4.) Encode the message into binary
+5.) Decode the message from binary back to text.
+
+If the nessage is short, the program should be able to display the Huffman tree after creating it.
+You can assume there are only letters, space, carriage returns and/or line feeds inthe message.
+You can use String variables to store the binary numbers as arrangements of the characters 1 and 0.
+Don't worry about doing actual bit manipulation unless you really want to.
+A sample output of the program is availalbe in this repo.
