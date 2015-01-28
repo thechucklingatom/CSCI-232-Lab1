@@ -1,0 +1,36 @@
+Enter the first letter of enter, show, code, or decode: e
+Enter text lines, terminate with $
+susie says it is easy
+$
+SUSIE[SAYS[IT[IS[EASY\
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [ \ ]
+2 0 0 0 2 0 0 0 3 0 0 0 0 0 0 0 0 0 6 1 1 0 0 0 2 0 4 1 0
+
+Enter first letter of enter, show, code, or decode: s
+.......................................................
+                            +22
+              +9                            +13
+      [4              +5              S6             +7
+  --        --    A2    +3        --    --      I3      +4
+  --  --  --  --  --  --  T1  +2 -- --  --  --  --  --  Y2  E2
+  ----------------------------\1U1----------------------------
+  ............................................................
+  
+  Enter the first letter of enter, show, code, or decode: c
+  A 010
+  E 1111
+  I 110
+  S 10
+  T 0110
+  U 01111
+  Y 1110
+  [ 00
+  \ 01110
+  Coded Message:
+  10011111011011110010010111010001100110001101000111101010111001110
+  
+  Enter first letter of enter, show, code, or decode: d
+  Decoded Message:
+  SUSIE[SAYS[IT[IS[EASY\  
+  
+  Enter first letter of enter, show, code, or decode: 
