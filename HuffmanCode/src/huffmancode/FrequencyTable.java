@@ -11,8 +11,8 @@ package huffmancode;
  */
 public class FrequencyTable {
     //need to convert to nodes with data holders
-    private int a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, 
-        v, w, x, y, z, sp, nl, aps, quote;
+    private int a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t = 0, 
+            u, v, w, x, y, z, sp, nl, aps, quote;
     //for ease of iteration god i'm rusty
     private int[] arr;
     
@@ -148,9 +148,21 @@ public class FrequencyTable {
         r, s, t, u, v, w, x, y, z, sp, nl, aps, quote};
         char test = 97;
         for(int iter : arr){
+            
             System.out.print(test + " ");
             System.out.println(iter);
-            test++;
+            if(test == 122){
+                test = 32;
+            }else if(test == 32){
+                test = 92;
+            }else if(test == 92){
+                test = 39;
+            }else if(test ==39){
+                test = 34;
+            }else{
+                test++;
+            }
+            
         }
     }
 }

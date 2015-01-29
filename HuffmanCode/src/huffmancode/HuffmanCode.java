@@ -28,7 +28,7 @@ public class HuffmanCode {
             data = new byte[(int) file.length()];
             fis.read(data);
         }
-
+        
         String str = new String(data, "UTF-8");
         
         String lines[] = str.split("\\r?\\n");

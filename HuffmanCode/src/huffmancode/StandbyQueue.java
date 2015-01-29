@@ -15,7 +15,7 @@ public class StandbyQueue<E extends Comparable> {
     private final  Node tail;
     
     private class Node<E extends Comparable <E>>  {
-        public E ele;
+        public E frequency;
         public Node next;
         public Node previous;
     }
@@ -31,7 +31,7 @@ public class StandbyQueue<E extends Comparable> {
         boolean assigned = false; 
         Node last = tail.previous;
         Node newNode = new Node();
-        newNode.ele = ele;
+        newNode.frequency = ele;
         Node counter = head.next;
         while(!assigned){
             if(size == 0){
@@ -41,7 +41,7 @@ public class StandbyQueue<E extends Comparable> {
                 last.next = newNode;
                 assigned = true;
             }else if(counter.previous.equals(head)){
-                if(ele.compareTo(counter.ele) == 1){
+                if(ele.compareTo(counter.frequency) == 1){
                     newNode.next = head.next;
                     head.next = newNode;
                     newNode.previous = head;
@@ -54,8 +54,8 @@ public class StandbyQueue<E extends Comparable> {
                 tail.previous = newNode;
                 last.next = newNode;
                 assigned = true;
-            }else if (ele.compareTo(counter.ele) == 1 
-                    && ele.compareTo(counter.previous.ele) == 0){
+            }else if (ele.compareTo(counter.frequency) == 1 
+                    && ele.compareTo(counter.previous.frequency) == 0){
                     newNode.next = counter;
                     newNode.previous =  counter.previous;
                     counter.previous.next = newNode;
@@ -78,7 +78,7 @@ public class StandbyQueue<E extends Comparable> {
             TBR = head.next;
             head.next = TBR.next;
             head.next.previous = head;
-            return TBR.ele.toString();
+            return TBR.frequency.toString();
         }
     }
     
@@ -108,7 +108,7 @@ public class StandbyQueue<E extends Comparable> {
         String[] list = new String[size];
         Node counter = head.next;
         for(int i = 0; i < size; i++){
-            list[i] = counter.ele.toString();
+            list[i] = counter.frequency.toString();
             counter = counter.next;
             if(counter.equals(tail)){
                 break;
