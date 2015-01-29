@@ -146,8 +146,11 @@ public class FrequencyTable {
     private void PrintFreq(){
         int[] arr = { a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, 
         r, s, t, u, v, w, x, y, z, sp, nl, aps, quote};
+        char test = 97;
         for(int iter : arr){
+            System.out.print(test + " ");
             System.out.println(iter);
+            test++;
         }
     }
 }
