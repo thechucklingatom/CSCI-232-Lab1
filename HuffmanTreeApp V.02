@@ -1,0 +1,282 @@
+package huffmantreeapp;
+
+/**
+ * V0.01
+ *
+ * @author Mathew Gostnell
+ * @author Robrt Putnam
+ */
+import java.util.*;
+import java.io.*;
+
+public class HuffmanTreeApp {
+
+    public static void main(String[] args) throws IOException {
+        String text = null, code = null, decoded = null;
+        Tree theTree = new Tree();
+        //Menu Header Printout
+        System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.print("[MENU]");
+        System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+        while (true) {
+            //Menu options including an exit option
+            System.out.print("\nEnter the first letter of the following");
+            System.out.print(" commands to execute.\n");
+            System.out.print(" [E]nter\n [C]ode\n [S]how\n [D]ecode\n "
+                    + "e[X]it\n");
+
+            char choice = getChar();
+            switch (choice) {
+                case 'e':
+                case 'E':
+                    System.out.print("Enter text to insert:\n");
+                    text = getString();
+                    System.out.print("$\n");                  
+                                        
+                    text = modifyString(text); 
+                    System.out.println(text);                    
+                    int[] temp = countLetters(text);
+                    
+                    System.out.println("A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [ / ]");
+                    for(int i = 0; i < temp.length; i++){
+                        System.out.print(temp[i] + " ");
+                    }
+                    System.out.print("\n");
+                    
+                    break;
+                case 's':
+                case 'S':
+                    theTree.displayTree();
+                    break;
+                case 'c':
+                case 'C':
+                    //insert code where we code up the huffman tree
+                    break;
+                case 'd':
+                case 'D':
+                    //insert code where we decode using decoding array
+                    break;
+                case 'x':
+                case 'X':
+                    System.out.print("Huffman Tree Application will now "
+                            + "exit!\n");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.print("ID-10-T ERROR: Invalid Entry!\n");
+                    break;
+            }   //end switch          
+        } // end while
+    } // end main()
+    // -------------------------------------------------------------
+
+    public static String getString() throws IOException {
+        InputStreamReader isr = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(isr);
+        String s = br.readLine();
+        return s;
+    }
+
+    // -------------------------------------------------------------
+    public static char getChar() throws IOException {
+        String s = getString();
+        return s.charAt(0);
+    }
+
+    //-------------------------------------------------------------
+    public static int getInt() throws IOException {
+        String s = getString();
+        return Integer.parseInt(s);
+    }
+
+    // -------------------------------------------------------------    
+    public static String modifyString(String text) {
+        text = text.toUpperCase();
+        String modString = "";
+        int pointer = 0;
+        while (pointer < text.length()) {
+            switch (text.charAt(pointer)) {
+                case 10:    //NL line feed, new line
+                    modString += '/';
+                    pointer++;
+                    break;
+                case 13:    //Carraige return
+                    modString += ']';
+                    pointer++;
+                    break;
+                case 32:    //Space
+                    modString += '[';
+                    pointer++;
+                    break;
+                default:    //Average everyday Letter / Symbol
+                    modString += text.charAt(pointer);
+                    pointer++;
+                    break;
+            }
+        }
+        return modString;
+    }
+
+    public static int[] countLetters(String text){
+        int pointer = 0;
+        /*
+            For numOccuranceArray the index 0-25 is for A-Z respectively
+            index 26 is for line feeds
+            index 27 is for carraige returns
+            index 28 is for spaces
+        */
+        int[] numOccuranceArray = new int[29];
+        
+        while(pointer < text.length()){
+            switch(text.charAt(pointer)){
+                case 'a':
+                case 'A':
+                    numOccuranceArray[0]++;
+                    pointer++;
+                    break;
+                case 'b':
+                case 'B':
+                    numOccuranceArray[1]++;
+                    pointer++;
+                    break;
+                case 'c':
+                case 'C':
+                    numOccuranceArray[2]++;
+                    pointer++;
+                    break;    
+                case 'd':
+                case 'D':
+                    numOccuranceArray[3]++;
+                    pointer++;
+                    break;    
+                case 'e':
+                case 'E':
+                    numOccuranceArray[4]++;
+                    pointer++;
+                    break;    
+                case 'f':
+                case 'F':
+                    numOccuranceArray[5]++;
+                    pointer++;
+                    break;    
+                case 'g':
+                case 'G':
+                    numOccuranceArray[6]++;
+                    pointer++;
+                    break;  
+                case 'h':
+                case 'H':
+                    numOccuranceArray[7]++;
+                    pointer++;
+                    break;   
+                case 'i':
+                case 'I':
+                    numOccuranceArray[8]++;
+                    pointer++;
+                    break;   
+                case 'j':
+                case 'J':
+                    numOccuranceArray[9]++;
+                    pointer++;
+                    break;    
+                case 'k':
+                case 'K':
+                    numOccuranceArray[10]++;
+                    pointer++;
+                    break;    
+                case 'l':
+                case 'L':
+                    numOccuranceArray[11]++;
+                    pointer++;
+                    break;    
+                case 'm':
+                case 'M':
+                    numOccuranceArray[12]++;
+                    pointer++;
+                    break;    
+                case 'n':
+                case 'N':
+                    numOccuranceArray[13]++;
+                    pointer++;
+                    break;    
+                case 'o':
+                case 'O':
+                    numOccuranceArray[14]++;
+                    pointer++;
+                    break;  
+                case 'p':
+                case 'P':
+                    numOccuranceArray[15]++;
+                    pointer++;
+                    break;    
+                case 'q':
+                case 'Q':
+                    numOccuranceArray[16]++;
+                    pointer++;
+                    break;    
+                case 'r':
+                case 'R':
+                    numOccuranceArray[17]++;
+                    pointer++;
+                    break;  
+                case 's':
+                case 'S':
+                    numOccuranceArray[18]++;
+                    pointer++;
+                    break;    
+                case 't':
+                case 'T':
+                    numOccuranceArray[19]++;
+                    pointer++;
+                    break;    
+                case 'u':
+                case 'U':
+                    numOccuranceArray[20]++;
+                    pointer++;
+                    break; 
+                case 'v':
+                case 'V':
+                    numOccuranceArray[21]++;
+                    pointer++;
+                    break;    
+                case 'w':
+                case 'W':
+                    numOccuranceArray[22]++;
+                    pointer++;
+                    break;  
+                case 'x':
+                case 'X':
+                    numOccuranceArray[23]++;
+                    pointer++;
+                    break;    
+                case 'y':
+                case 'Y':
+                    numOccuranceArray[24]++;
+                    pointer++;
+                    break;    
+                case 'z':
+                case 'Z':
+                    numOccuranceArray[25]++;
+                    pointer++;
+                    break; 
+                case '[':                
+                case 32:    
+                    numOccuranceArray[26]++;
+                    pointer++;
+                    break;    
+                case 10:
+                case '/':                     
+                    numOccuranceArray[27]++;
+                    pointer++;
+                    break;  
+                case 13:
+                case ']':    
+                    numOccuranceArray[28]++;
+                    pointer++;
+                    break;                   
+                
+            }
+        }
+        return numOccuranceArray;
+    }
+}
