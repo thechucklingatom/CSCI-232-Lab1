@@ -1,0 +1,94 @@
+package huffmantreeapp;
+
+/**
+ * V0.01
+ * @author Gostnell, Mathew
+ * @author Putnam, Robrt 
+ */
+import java.util.*;
+import java.io.*;
+
+public class HuffmanTreeApp {
+
+    public static void main(String[] args) throws IOException {
+        //Declare variables for easier management
+        String text = null, code = null, decoded = null;
+        Tree theTree = new Tree();
+        
+        //Menu Header Printout
+        System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.print("[MENU]");
+        System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+        while (true) {
+            //Menu options including an exit option
+            System.out.print("\nEnter the first letter of the following");
+            System.out.print(" commands to execute.\n");
+            System.out.print(" [E]nter\n [S]how\n [C]ode\n [D]ecode\n "
+                    + "e[X]it\n");
+
+            char choice = getChar();
+            switch (choice) {
+                case 'e':
+                case 'E':
+                    System.out.print("Enter text to insert:\n");
+                    text = getString();
+                    text = text.toUpperCase();
+                    
+                    //Debugging code to test modifyString() method
+                    System.out.println("Got text " + text);
+                    text = modifyString(text);
+                    System.out.println("New string is " + text);
+                    System.out.print("$\n");
+                    break;
+                case 's':
+                case 'S':
+                    theTree.displayTree();
+                    break;
+                case 'c':
+                case 'C':
+                    //insert code where we code up the huffman tree
+                    break;
+                case 'd':
+                case 'D':
+                    //insert code where we decode using decoding array
+                    break;
+                case 'x':
+                case 'X':
+                    System.out.print("Huffman Tree Application will now "
+                            + "exit!\n");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.print("ID-10-T ERROR: Invalid Entry!\n");
+                    break;
+            }   //end switch          
+        } // end while
+    } // end main()
+    // -------------------------------------------------------------
+
+    public static String getString() throws IOException {
+        InputStreamReader isr = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(isr);
+        String s = br.readLine();
+        return s;
+    }
+
+    // -------------------------------------------------------------
+    public static char getChar() throws IOException {
+        String s = getString();
+        return s.charAt(0);
+    }
+
+    //-------------------------------------------------------------
+    public static int getInt() throws IOException {
+        String s = getString();
+        return Integer.parseInt(s);
+    }
+    // -------------------------------------------------------------
+
+    public static String modifyString(String text) {
+        //insert code to modfy input String to handle better in the priorityQ
+        //currently will return input
+        return text;
+    }
+}
