@@ -6,32 +6,32 @@ package huffmancode;
 import java.io.*;
 import java.util.*; // for Stack class
 ////////////////////////////////////////////////////////////////
-//class Node
-//{
-//        public int iData; // data item (key)
-//        public double dData; // data item
-//        public Node leftChild; // this node's left child
-//        public Node rightChild; // this node's right child
-//        public void displayNode() // display ourself
-//        {
-//                System.out.print('{');
-//                System.out.print(iData);
-//                System.out.print(", ");
-//                System.out.print(dData);
-//                System.out.print("} ");
-//        }
-//} // end class Node
+class TreeNode
+{
+        public int iData; // data item (key)
+        public double dData; // data item
+        public TreeNode leftChild; // this node's left child
+        public TreeNode rightChild; // this node's right child
+        public void displayNode() // display ourself
+        {
+                System.out.print('{');
+                System.out.print(iData);
+                System.out.print(", ");
+                System.out.print(dData);
+                System.out.print("} ");
+        }
+} // end class Node
 ////////////////////////////////////////////////////////////////
 class BinaryTree
 {
-	private Node root; // first node of tree
+	private TreeNode root; // first node of tree
 	// -------------------------------------------------------------
 	public BinaryTree() // constructor
 	{ root = null; } // no nodes in tree yet
 	//-------------------------------------------------------------
-	public Node find(int key) // find node with given key
+	public TreeNode find(int key) // find node with given key
 	{ // (assumes non-empty tree)
-		Node current = root; // start at root
+		TreeNode current = root; // start at root
 		while(current.iData != key) // while no match,
 		{
 			if(key < current.iData) // go left?
@@ -46,15 +46,15 @@ class BinaryTree
 	// -------------------------------------------------------------
 	public void insert(int id, double dd)
 	{
-		Node newNode = new Node(); // make new node
+		TreeNode newNode = new TreeNode(); // make new node
 		newNode.iData = id; // insert data
 		newNode.dData = dd;
 		if(root==null) // no node in root
 			root = newNode;
 		else // root occupied
 		{
-			Node current = root; // start at root
-			Node parent;
+			TreeNode current = root; // start at root
+			TreeNode parent;
 			while(true) // (exits internally)
 			{
 				parent = current;
@@ -82,8 +82,8 @@ class BinaryTree
 	// -------------------------------------------------------------
 	public boolean delete(int key) // delete node with given key
 	{ // (assumes non-empty list)
-		Node current = root;
-		Node parent = root;
+		TreeNode current = root;
+		TreeNode parent = root;
 		boolean isLeftChild = true;
 		while(current.iData != key) // search for node
 		{
@@ -132,7 +132,7 @@ class BinaryTree
 		else // two children, so replace with inorder successor
 		{
 			// get successor of node to delete (current)
-			Node successor = getSuccessor(current);
+			TreeNode successor = getSuccessor(current);
 			// connect parent of current to successor instead
 			if(current == root)
 				root = successor;
@@ -149,11 +149,11 @@ class BinaryTree
 	// -------------------------------------------------------------
 	// returns node with next-highest value after delNode
 	// goes to right child, then right child's left descendents
-	private Node getSuccessor(Node delNode)
+	private TreeNode getSuccessor(TreeNode delNode)
 	{
-		Node successorParent = delNode;
-		Node successor = delNode;
-		Node current = delNode.rightChild; // go to right child
+		TreeNode successorParent = delNode;
+		TreeNode successor = delNode;
+		TreeNode current = delNode.rightChild; // go to right child
 		while(current != null) // until no more
 		{ // left children,
 			successorParent = successor;
@@ -186,7 +186,7 @@ class BinaryTree
 		System.out.println();
 	}
 	// -------------------------------------------------------------
-	private void preOrder(Node localRoot)
+	private void preOrder(TreeNode localRoot)
 	{
 		if(localRoot != null)
 		{
@@ -196,7 +196,7 @@ class BinaryTree
 		}
 	}
 	// -------------------------------------------------------------
-	private void inOrder(Node localRoot)
+	private void inOrder(TreeNode localRoot)
 	{
 		if(localRoot != null)
 		{
@@ -206,7 +206,7 @@ class BinaryTree
 		}
 	}
 	// -------------------------------------------------------------
-	private void postOrder(Node localRoot)
+	private void postOrder(TreeNode localRoot)
 	{
 		if(localRoot != null)
 		{
@@ -232,7 +232,7 @@ class BinaryTree
 				System.out.print(' ');
 			while(globalStack.isEmpty()==false)
 			{
-				Node temp = (Node)globalStack.pop();
+				TreeNode temp = (TreeNode)globalStack.pop();
 				if(temp != null)
 				{
 					System.out.print(temp.iData);
@@ -298,7 +298,7 @@ class TreeApp
 			case 'f':
 				System.out.print("Enter value to find: ");
 				value = getInt();
-				Node found = theTree.find(value);
+				TreeNode found = theTree.find(value);
 				if(found != null)
 				{
 					System.out.print("Found: ");
