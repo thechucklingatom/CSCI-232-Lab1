@@ -8,7 +8,6 @@ package huffmancode;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-
 /**
  *
  * @author thechucklingatom
@@ -39,6 +38,13 @@ public class HuffmanCode {
         
         FrequencyTable myTable = new FrequencyTable();
         myTable.CreateTable(lines);
+        
+        Node[] arr = myTable.ReturnNodes();
+        for(Node iter : arr){
+            System.out.println(iter.data + " " + iter.frequncy);
+        }
+        StandbyQueue myQ = new StandbyQueue();
+        myQ.enqueue('x', 2);
     }
     
 }

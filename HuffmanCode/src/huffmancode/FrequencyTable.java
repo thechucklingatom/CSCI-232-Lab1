@@ -10,11 +10,12 @@ package huffmancode;
  * @author thechucklingatom
  */
 public class FrequencyTable {
+    
     //need to convert to nodes with data holders
-    private int a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t = 0, 
+    private int a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, 
             u, v, w, x, y, z, sp, nl, aps, quote;
     //for ease of iteration god i'm rusty
-    private int[] arr;
+    private int[] arr = new int[30];
     
     //handles a just one line
     public void CreateTable(String line){
@@ -25,7 +26,7 @@ public class FrequencyTable {
     public void CreateTable(String[] doc){
         nl = doc.length;
         ParseString(doc);
-        PrintFreq();
+        //PrintFreq();
     }
     
     //resets the table for a different input
@@ -137,15 +138,48 @@ public class FrequencyTable {
                 }                
             }
         }
+        
+        int[] toCopy = {a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, 
+        r, s, t, u, v, w, x, y, z, sp, nl, aps, quote};
+        System.arraycopy(toCopy, 0, arr, 0, arr.length);
     }
     
-    private void AddToQ(){
-        //add the arr into a Q to be returned as a frequency table
+    public Node[] ReturnNodes(){
+        int counter = 0;
+        for(int i = 0; i < arr.length; i++){
+            if(arr[i] != 0){
+                counter++;
+            }
+        }
+        Node[] nodes = new Node[counter];
+        char character = 97;
+        counter = 0;
+        for(int iter : arr){
+            if(iter != 0){
+                Node toAdd = new Node();
+                toAdd.frequncy = iter;
+                toAdd.data = character;
+                nodes[counter] = toAdd;
+                counter++;
+            }
+                
+            if(character == 122){
+                character = 32;
+            }else if(character == 32){
+                character = 92;
+            }else if(character == 92){
+                character = 39;
+            }else if(character ==39){
+                character = 34;
+            }else{
+                character++;
+            }
+        }
+        
+        return nodes;
     }
     
     private void PrintFreq(){
-        int[] arr = { a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, 
-        r, s, t, u, v, w, x, y, z, sp, nl, aps, quote};
         char test = 97;
         for(int iter : arr){
             
