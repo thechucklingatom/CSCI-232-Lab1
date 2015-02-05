@@ -1,0 +1,103 @@
+package huff;
+
+/**
+ * V0.04
+ *
+ * @author Gostnell, Mathew
+ * @author Putnam, Robert
+ */
+import java.io.*;
+
+public class HuffmanTreeApp {
+
+    public static void main(String[] args) throws IOException {
+        huffman huff;
+        String text;
+        BinaryTree theTree = new BinaryTree();
+        //Menu Header Printout
+        System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.print("[MENU]");
+        System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+        while (true) {
+            //Menu options including an exit option
+            System.out.print("\nEnter the first letter of the following");
+            System.out.print(" commands to execute.\n");
+            System.out.print(" [E]nter\n [C]ode\n [S]how\n [D]ecode\n "
+                    + "e[X]it\n");
+
+            char choice = getChar();
+            switch (choice) {
+                case 'e':
+                case 'E':                    
+                    System.out.print("Enter text lines, terminate with new line $\n"); 
+                    System.out.print("\nEXAMPLE:\n");
+                    System.out.print("Insert message here\n");
+                    System.out.print("$\n");
+                    text = getStringMessage();
+                    huff = new huffman(text);
+                    huff.makeFreqTable();             
+
+                    break;
+                case 's':
+                case 'S':
+                    theTree.displayTree();
+                    break;
+                case 'c':
+                case 'C':
+                    //insert code where we code up the huffman tree
+                    break;
+                case 'd':
+                case 'D':
+                    //insert code where we decode using decoding array
+                    break;
+                case 'x':
+                case 'X':
+                    System.out.print("Huffman BinaryTree Application will now "
+                            + "exit!\n");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.print("ID-10-T ERROR: Invalid Entry!\n");
+                    break;
+            }   //end switch          
+        } // end while
+    } // end main()
+    // -------------------------------------------------------------
+
+    public static String getStringMessage() throws IOException {        
+        InputStreamReader isr = new InputStreamReader(System.in);
+        StringBuilder returnString = new StringBuilder();
+        String line;
+        BufferedReader br = new BufferedReader(isr);
+        while ((line = br.readLine()) != null) {                   
+           if(line.endsWith("$")){               
+                break;
+            }
+           returnString.append(line);
+           //returnString.append('\r');
+           returnString.append('\n');
+        }
+        return returnString.toString();
+    }
+    // -------------------------------------------------------------
+    
+    public static String getString() throws IOException {
+        InputStreamReader isr = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(isr);
+        String s = br.readLine();
+        return s;
+    }
+
+    // -------------------------------------------------------------
+    public static char getChar() throws IOException {        
+        String s = getString();
+        return s.charAt(0);
+    }
+
+    //-------------------------------------------------------------
+    public static int getInt() throws IOException {
+        String s = getString();
+        return Integer.parseInt(s);
+    }
+
+}
