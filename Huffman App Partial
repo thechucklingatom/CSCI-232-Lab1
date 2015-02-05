@@ -1,0 +1,215 @@
+// huffman.java
+// demonstrates Huffman trees
+// to run this program: C>java HuffmanApp
+import java.io.*;
+import java.util.*;               // for Stack class
+////////////////////////////////////////////////////////////////
+class Node
+{
+	public char ch;                // letter
+	public int freq;               // instances of this letter
+	public Node leftChild;         // this node's left child
+	public Node rightChild;        // this node's right child
+	// -------------------------------------------------------------
+	Node(char c, int f){}          // constructor
+	// -------------------------------------------------------------
+	public void displayNode()      // display ourself
+}  // end class Node
+////////////////////////////////////////////////////////////////
+class Tree
+{
+	public Node root;              // first node of tree
+	// -------------------------------------------------------------
+	public Tree(Node nd)           // constructor
+	{ root = nd; }              // root of tree from argument
+	// -------------------------------------------------------------
+	public int getFreq()           // returns node's word freq
+	{ return root.freq; }
+	// -------------------------------------------------------------
+	public void display()
+	{
+	}  // end displayTree()
+	// -------------------------------------------------------------
+}  // end class Tree
+////////////////////////////////////////////////////////////////
+class PriorityQ
+{
+}  // end class PriorityQ
+////////////////////////////////////////////////////////////////
+class Huffman
+{
+	private PriorityQ theQueue;
+	private String inString;        // input from user
+	private int strlen;
+	private String capsString;      // converted to all caps
+	private Tree huffTree;          // Huffman tree
+	private int freqTable[];        // letter frequencies
+	private int alphabetSize;       // size of frequency table
+	private String codeTable[];     // code for each letter
+	private String codedMsg;        // binary string
+	private String decodedMsg;      // back to original msg
+	// -------------------------------------------------------------
+	Huffman(String s)                     // constructor
+	{
+		inString = s;
+		strlen = inString.length();
+		alphabetSize = 29;                 // 26 letters, space, cr, lf
+		theQueue = new PriorityQ(alphabetSize); // make the queue
+		capsString = "";
+		codeTable = new String[alphabetSize];   // make code table
+
+		makeFreqTable();          // construct frequency table
+		queueTrees();             // put one-node trees in queue
+		makeHuffTree();           // construct Huffman tree
+	}  // end constructor
+	// -------------------------------------------------------------
+	public void displayTree()
+	{
+		if(huffTree != null)
+			huffTree.display();
+	}
+	// -------------------------------------------------------------
+	private void makeFreqTable()
+	{
+		…
+		int index = (int)ch - 65;       // convert to 0 to 28
+		freqTable[index]++;             // keep count in
+		…
+	}  // end makeFreqTable()
+	// -------------------------------------------------------------
+	private void queueTrees()             // put trees in queue
+	{
+		for(int j=0; j<alphabetSize; j++)  // for each char in
+		{                               // frequency table
+			…
+			Node aNode = new Node( (char)(j+65), freq); // make node
+			Tree aTree = new Tree(aNode);   // make tree
+			theQueue.insert(aTree);         // put in queue
+		}
+	}  // end queueTrees()
+	// -------------------------------------------------------------
+	private void makeHuffTree()           // make Huffman tree
+	{
+		while(theQueue.getSize() > 1)      // until only one tree
+		{
+			Tree treeLeft = theQueue.remove();  // get trees with
+			Tree treeRight = theQueue.remove(); // smallest freqs
+			// add their freqs
+			
+
+			// make node
+			// make tree
+			// connect
+			theQueue.insert(aTree);             // insert in queue
+		}
+		huffTree = theQueue.remove();      // final tree
+	}  // end makeHuffTree()
+	// -------------------------------------------------------------
+	private void makeCodeTable(Node nd, String bc)
+	{
+		if(nd.ch == '+')                   // not a leaf node
+		{
+			makeCodeTable(nd.leftChild, bc+"0");  // call ourself
+			makeCodeTable(nd.rightChild, bc+"1"); // recursively
+		}
+		else                               // leaf node, so put
+		{                               //    in code table
+			…
+		}
+	}  // end makeCodeTable()
+	// -------------------------------------------------------------
+	public void code()                    // encode the msg
+	{
+	}  // end code()
+	// -------------------------------------------------------------
+	public void decode()
+	{
+		decodedMsg = "";
+		int cmLength = codedMsg.length();
+		int j = 0;
+		while(j < cmLength)
+		{
+			Node theNode = huffTree.root;  // start at root
+			while(theNode.ch == '+')       // until leaf,
+			{
+				if(codedMsg.charAt(j++) == '0')    // if '0'
+					// go left
+				else                               // if '1'
+					// go right
+			}
+			decodedMsg = decodedMsg + theNode.ch; // letter at
+		}                                     // leaf node
+		System.out.println("Decoded msg:\n" + decodedMsg);
+	}  // end decode()
+	// -------------------------------------------------------------
+}  // end class Huffman
+////////////////////////////////////////////////////////////////
+class HuffmanApp
+{
+	public static void main(String[] args) throws IOException
+	{
+		Huffman huff = null;
+		int value;
+		String str;
+
+		while(true)
+		{
+			System.out.print("Enter first letter of ");
+			System.out.print("enter, show, code, or decode: ");
+			int choice = getChar();
+			switch(choice)
+			{
+			case 'e':
+				System.out.println(
+						"Enter text lines, terminate with $");
+				str = getText();
+				huff = new Huffman(str);
+				break;
+			case 's':
+				huff.displayTree();
+				break;
+			case 'c':
+				huff.code();
+				break;
+			case 'd':
+				huff.decode();
+				break;
+			default:
+				System.out.print("Invalid entry\n");
+			}  // end switch
+		}  // end while
+	}  // end main()
+	// -------------------------------------------------------------
+	public static String getString() throws IOException
+	{
+		InputStreamReader isr = new InputStreamReader(System.in);
+		BufferedReader br = new BufferedReader(isr);
+		String s = br.readLine();
+		return s;
+	}
+	// -------------------------------------------------------------
+	public static String getText() throws IOException
+	{
+		String outStr="", str = "";
+		while(true)
+		{
+			str = getString();
+			if( str.equals("$") )
+				return outStr;
+			outStr = outStr + str + "\n";
+		}
+	}  // end getText()
+	// -------------------------------------------------------------
+	public static char getChar() throws IOException
+	{
+		String s = getString();
+		return s.charAt(0);
+	}
+	//-------------------------------------------------------------
+	public static int getInt() throws IOException
+	{
+		String s = getString();
+		return Integer.parseInt(s);
+	}
+	// -------------------------------------------------------------
+}  // end class HuffmanApp
