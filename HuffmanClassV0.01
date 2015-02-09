@@ -1,0 +1,130 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package huff;
+
+import java.util.PriorityQueue;
+
+/**
+ *
+ * @author thechucklingatom
+ */
+public class huffman {
+
+    private PriorityQueue theQueue;
+    private String inString;        // input from user
+    private int strlen;
+    private String capsString;      // converted to all caps
+    private BinaryTree huffTree;          // Huffman tree
+    private int freqTable[];        // letter frequencies
+    private int alphabetSize;       // size of frequency table
+    private String codeTable[];     // code for each letter
+    private String codedMsg;        // binary string
+    private String decodedMsg;      // back to original msg
+    // -------------------------------------------------------------
+
+    huffman(String s) // constructor
+    {
+        inString = s;
+        strlen = inString.length();
+        alphabetSize = 29;
+        freqTable = new int[29];// 26 letters, space, cr, lf
+        theQueue = new PriorityQueue(alphabetSize); // make the queue
+        capsString = "";
+        codeTable = new String[alphabetSize];   // make code table
+
+        //makeFreqTable();          // construct frequency table
+        //queueTrees();             // put one-node trees in queue
+        //makeHuffTree();           // construct Huffman tree
+    }  // end constructor
+
+    // -------------------------------------------------------------    
+    public String getCapsString(String text) {
+        return capsString;
+    }
+
+    public void makeFreqTable() {
+
+        /*
+         For freqTable the index 0-25 is for A-Z respectively
+         index 26 is for spaces
+         index 27 is for line feeds
+         index 28 is for carraige returns
+         */
+        inString = inString.toUpperCase();
+        capsString = "";
+        for (char iter : inString.toCharArray()) {
+            if (iter == 10) {
+                freqTable[27]++;
+                capsString += '/';
+            } else if (iter == 13) {
+                freqTable[28]++;
+                capsString += ']';
+            } else if (iter == 32) {
+                freqTable[26]++;
+                capsString += '[';
+            } else {
+                freqTable[iter - 65]++;
+                capsString += iter;
+            }
+        }
+        System.out.println(capsString);
+        System.out.println("A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [ / ]");
+        for (int iter : freqTable) {
+            System.out.print(iter + " ");
+        }
+        System.out.print("\n");
+        queueNodes();
+        makeHuffTree();
+    }
+
+    private void queueNodes() // put trees in queue
+    {
+        Node aNode;
+        for (int j = 0; j < alphabetSize; j++) // for each char in
+        { // frequency table
+            if (j == 27) {
+                aNode = new Node('/', freqTable[j]); // make node
+            } else if (j == 28) {
+                aNode = new Node(']', freqTable[j]); // make node
+            } else if (j == 26) {
+                aNode = new Node('[', freqTable[j]); // make node
+            } else {
+                aNode = new Node((char) (j + 65), freqTable[j]); // make node
+            }
+            if (aNode.key > 0) {
+                theQueue.add(aNode); // put in queue
+            }
+        }
+    }  // end queueNodes()
+
+    private void makeHuffTree() {
+        boolean done = false;
+        int tempFreq;
+        Node tempNode1, tempNode2, toReAdd;
+        while (!done) {
+            toReAdd = new Node('+', 0);
+            tempNode1 = (Node) theQueue.remove();
+            if (theQueue.isEmpty()) {
+                huffTree = new BinaryTree(tempNode1);
+                done = true;
+            } else {
+                tempNode2 = (Node) theQueue.remove();
+                toReAdd.leftChild = tempNode1;
+                toReAdd.rightChild = tempNode2;
+                toReAdd.key = toReAdd.leftChild.key + toReAdd.rightChild.key;
+                theQueue.add(toReAdd);
+            }
+        }
+    }
+
+    public void printTree() {
+        huffTree.displayTree();
+    }
+
+    private void makeDecodeArray() {
+
+    }
+}
